@@ -1,6 +1,6 @@
-## React
+##React
 
-## createPortal
+createPortal
 
 ```js
 import { useState } from "react";
@@ -45,9 +45,9 @@ const Example = () => {
 export default Example;
 ```
 
-## useRef
+useRef
 
-```js
+```ts
 import { useState, useRef } from "react";
 
 const Case1 = () => {
@@ -100,9 +100,9 @@ export default Example;
 
 ```
 
-## useState
+useState
 
-```js
+```ts
 import { useState } from "react";
 
 // POINT stateとレンダリングの仕組み
@@ -128,9 +128,9 @@ const Example = () => {
 export default Example;
 ```
 
-## useContext(),createContext();
+useContext(),createContext();
 
-```js
+```ts
 
 index.ts {
   // POINT useContextとstate
@@ -142,11 +142,9 @@ index.ts {
 
   const Example = () => {
     const stateAndSetter = useState(0);
-    // stateAndSetter = [ state, setState ] 　stateAndSetterに[ state, setState ]が渡る
+    // stateAndSetter = [ state, setState ]
     return (
       <MyContext.Provider value={stateAndSetter}>
-        {/*　valueに{stateAndSetter}を設定　こうすることでuseContext(stateAndSetter)とすることができ、
-        stateAndSetterの中身はuseState()から渡ってきた[state,setState]初期値０、となる　*/}
         <Child />
         <OtherChild />
       </MyContext.Provider>
@@ -154,15 +152,11 @@ index.ts {
   };
 }
 
-export default Example;
-
-
 OtherChild.ts {
   import { useContext } from "react";
   import { MyContext } from "../Example";
   const OtherChild = () => {
-    const [, setState] = useContext(MyContext); // useContextの引数にContextオブジェクトを指定することでContext値を取得
-    // MyContextに[ state, setState ]が渡ってきている　[,setState ]のみに分割代入
+    const [, setState] = useContext(MyContext);
 
     const clickHandler = (e) => {
       setState((prev) => prev + 1);
@@ -175,10 +169,7 @@ OtherChild.ts {
       </div>
     );
   };
-
-  export default OtherChild;
 }
-
 
 Child.ts {
   import GrandChild from "./GrandChild";
@@ -191,21 +182,8 @@ Child.ts {
   export default Child;
 }
 
+export default OtherChild;
 
-GrandChild.ts {
-  import { useContext } from "react";
-  import { MyContext } from "../Example";
-  const GrandChild = () => {
-    const [value] = useContext(MyContext); // MyContextのContext値[ state, setState ]が渡ってきているので、必要な[ value ]のみに分割代入
-    return (
-      <div style={{ border: "1px solid black" }}>
-        <h3>孫コンポーネント</h3>
-        {value}
-      </div>
-    );
-  };
-  export default GrandChild;
-}
-
+export default Example;
 
 ```

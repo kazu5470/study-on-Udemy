@@ -1,0 +1,64 @@
+## アッパーキャメルケース 単語の始まりを大文字で書く（先頭の文字も含める）
+
+```ts
+...ContractData,ContractStatus
+```
+
+## キャメルケース 先頭の文字は含めず、単語の始まりを大文字で書く
+
+```ts
+...contractData,contractStatus
+```
+
+## アッパースネークケース 全て大文字で、単語間を`_`で繋げて書く
+
+```ts
+...CONTRACT_DATA,CONTRACT_STATUS
+```
+
+## スネークケース 全て小文字で、単語間を`_`で繋げて書く
+
+```ts
+...contract*data,contract_status
+```
+
+## ケバブケース 全て小文字で、単語間をハイフンで繋げて書く
+
+```ts
+...contract-data,contract-status
+```
+
+## 配列に新しい要素を追加
+
+```ts
+const obj1: string = ["hoge", "fuga", "huwa"];
+// 破壊的　unshift()
+obj1.unshift("oga"); // ['oga','hoge','fuga','huwa']  obj1自体の配列に追加してしまうため、バグの原因になりやすい
+
+// 非破壊的　スプレッド構文で書く
+const newObj = ["oga", ...obj1]; // ...obj1で配列新しく配列を作り直し、["oga", ...obj1]とすることで要素を追加したものをnewObjに代入する
+```
+
+## 配列の先頭に要素を追加する
+
+極力避けた方が良い方法
+
+```ts
+ContractStatusRefinement(): KubunValueList {
+      const ContractStatus = { value: 30, text: '全ての契約' };
+      kubuns.contractStatuses.unshift(ContractData); //　破壊的なのでunshift()は極力使わない
+      return kubuns.contractStatuses;
+}
+```
+
+unshift()を使わない方法
+
+```ts
+ContractStatusRefinement(): KubunValueList {
+    const newContractStatus = [
+        { value: 30, text: '全ての契約'},
+        ...kubuns.contractStatuses // [{追加したい要素}, ...要素を追加したい配列]とすることで配列の先頭に要素を追加し、スプレッドで配列を作り直す
+    ]
+    return newContractStatus;
+}
+```

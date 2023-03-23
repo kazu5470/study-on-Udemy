@@ -144,9 +144,7 @@ index.ts {
     const stateAndSetter = useState(0);
     // stateAndSetter = [ state, setState ] 　stateAndSetterに[ state, setState ]が渡る
     return (
-      <MyContext.Provider value={stateAndSetter}>
-        {/*　valueに{stateAndSetter}を設定　こうすることでuseContext(stateAndSetter)とすることができ、
-        stateAndSetterの中身はuseState()から渡ってきた[state,setState]初期値０、となる　*/}
+      <MyContext.Provider value={stateAndSetter}> // valueに{stateAndSetter}を設定
         <Child />
         <OtherChild />
       </MyContext.Provider>
@@ -161,8 +159,7 @@ OtherChild.ts {
   import { useContext } from "react";
   import { MyContext } from "../Example";
   const OtherChild = () => {
-    const [, setState] = useContext(MyContext); // useContextの引数にContextオブジェクトを指定することでContext値を取得
-    // MyContextに[ state, setState ]が渡ってきている　[,setState ]のみに分割代入
+    const [, setState] = useContext(MyContext);
 
     const clickHandler = (e) => {
       setState((prev) => prev + 1);
@@ -191,12 +188,11 @@ Child.ts {
   export default Child;
 }
 
-
 GrandChild.ts {
   import { useContext } from "react";
   import { MyContext } from "../Example";
   const GrandChild = () => {
-    const [value] = useContext(MyContext); // MyContextのContext値[ state, setState ]が渡ってきているので、必要な[ value ]のみに分割代入
+    const [value] = useContext(MyContext);
     return (
       <div style={{ border: "1px solid black" }}>
         <h3>孫コンポーネント</h3>

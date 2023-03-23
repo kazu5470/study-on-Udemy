@@ -1,6 +1,6 @@
-## React
+##React
 
-## createPortal
+createPortal
 
 ```js
 import { useState } from "react";
@@ -45,7 +45,7 @@ const Example = () => {
 export default Example;
 ```
 
-## useRef
+useRef
 
 ```js
 import { useState, useRef } from "react";
@@ -100,112 +100,77 @@ export default Example;
 
 ```
 
-## useState
+useState
+,,,js
+import {useState} from 'react';
+const [state, setState] = useState(初期値); // setState は更新関数
 
-```js
-import { useState } from "react";
+,,,
 
-// POINT stateとレンダリングの仕組み
-const Example = () => {
-  let displayVal;
-  let [val, setVal] = useState();
-  // console.log('再レンダリングされました');
-  return (
-    <>
-      <input
-        type="text"
-        onChange={(e) => {
-          console.log(e.target.value);
-          // setVal(e.target.value);
-          // displayVal = e.target.value;
-        }}
-      />
-      = {val}
-    </>
-  );
-};
+## React スニペット
 
-export default Example;
+## rfc ...React Functional component
+
+関数宣言時に`export default` を設定
+
+```ts
+import React from "react";
+
+export default function Button() {
+  return <div></div>;
+}
 ```
 
-## useContext(),createContext();
+## rfce ...React Functional Component Export
 
-```js
+関数宣言の末尾に`export default`を設定
 
-index.ts {
-  // POINT useContextとstate
-  import { createContext, useState } from "react";
-  import Child from "./component/Child";
-  import OtherChild from "./component/OtherChild";
+```ts
+import React from "react";
 
-  export const MyContext = createContext();
+const Button = () => {
+  return <div></div>;
+};
 
-  const Example = () => {
-    const stateAndSetter = useState(0);
-    // stateAndSetter = [ state, setState ] 　stateAndSetterに[ state, setState ]が渡る
-    return (
-      <MyContext.Provider value={stateAndSetter}>
-        {/*　valueに{stateAndSetter}を設定　こうすることでuseContext(stateAndSetter)とすることができ、
-        stateAndSetterの中身はuseState()から渡ってきた[state,setState]初期値０、となる　*/}
-        <Child />
-        <OtherChild />
-      </MyContext.Provider>
-    );
-  };
+export default Button;
+```
+
+## rafc ...React Arrow Functional Component
+
+アロー関数宣言時に`export` でコンポーネントを作成
+
+```ts
+import React from "react";
+
+export const Button = () => {
+  return <div></div>;
+};
+```
+
+## rafce ...React Arrow Functional Component Export
+
+アロー関数の末尾で`export`
+
+```ts
+import React from "react";
+
+const Button = () => {
+  return <div></div>;
+};
+
+export default Button;
+```
+
+## rcc ...React Class Component
+
+クラスコンポーネントを作成
+
+```ts
+import React, { Component } from "react";
+
+export default class Button extends Component {
+  render() {
+    return <div></div>;
+  }
 }
-
-export default Example;
-
-
-OtherChild.ts {
-  import { useContext } from "react";
-  import { MyContext } from "../Example";
-  const OtherChild = () => {
-    const [, setState] = useContext(MyContext); // useContextの引数にContextオブジェクトを指定することでContext値を取得
-    // MyContextに[ state, setState ]が渡ってきている　[,setState ]のみに分割代入
-
-    const clickHandler = (e) => {
-      setState((prev) => prev + 1);
-    };
-
-    return (
-      <div style={{ border: "1px solid black" }}>
-        <h3>他の子コンポーネント</h3>
-        <button onClick={clickHandler}>+</button>
-      </div>
-    );
-  };
-
-  export default OtherChild;
-}
-
-
-Child.ts {
-  import GrandChild from "./GrandChild";
-  const Child = () => (
-    <div style={{ border: "1px solid black", padding: 10 }}>
-      <h3>子コンポーネント</h3>
-      <GrandChild />
-    </div>
-  );
-  export default Child;
-}
-
-
-GrandChild.ts {
-  import { useContext } from "react";
-  import { MyContext } from "../Example";
-  const GrandChild = () => {
-    const [value] = useContext(MyContext); // MyContextのContext値[ state, setState ]が渡ってきているので、必要な[ value ]のみに分割代入
-    return (
-      <div style={{ border: "1px solid black" }}>
-        <h3>孫コンポーネント</h3>
-        {value}
-      </div>
-    );
-  };
-  export default GrandChild;
-}
-
-
 ```

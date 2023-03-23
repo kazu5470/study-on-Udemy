@@ -146,7 +146,7 @@ index.ts {
     return (
       <MyContext.Provider value={stateAndSetter}>
         {/*　valueに{stateAndSetter}を設定　こうすることでuseContext(stateAndSetter)とすることができ、
-        stateAndSetterの中身はuseState()から渡ってきた[state,setState]初期値０、となる　*/}
+        stateAndSetterの中身はuseState()から渡ってきたstate,setStateとなる　*/}
         <Child />
         <OtherChild />
       </MyContext.Provider>
@@ -161,7 +161,7 @@ OtherChild.ts {
   import { useContext } from "react";
   import { MyContext } from "../Example";
   const OtherChild = () => {
-    const [, setState] = useContext(MyContext); // useContextの引数にContextオブジェクトを指定することでContext値を取得
+    const [, setState] = useContext(MyContext); // useContextの引数にContexttオブジェクトを指定することでContext値を取得
     // MyContextに[ state, setState ]が渡ってきている　[,setState ]のみに分割代入
 
     const clickHandler = (e) => {
