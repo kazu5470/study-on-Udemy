@@ -4,11 +4,15 @@
 ...ContractData,ContractStatus
 ```
 
-## キャメルケース 先頭の文字は含めず、単語の始まりを大文字で書く
+基本的に型かコンポーネント名でしか使用しない。
+
+## ローワーキャメルケース 先頭の文字は含めず、単語の始まりを大文字で書く
 
 ```ts
 ...contractData,contractStatus
 ```
+
+ローワーキャメルが基本ケース　この書き方を意識する
 
 ## アッパースネークケース 全て大文字で、単語間を`_`で繋げて書く
 
@@ -44,10 +48,12 @@ const newObj = ["oga", ...obj1]; // ...obj1で配列新しく配列を作り直�
 極力避けた方が良い方法
 
 ```ts
-ContractStatusRefinement(): KubunValueList {
-      const ContractStatus = { value: 30, text: '全ての契約' };
-      kubuns.contractStatuses.unshift(ContractData); //　破壊的なのでunshift()は極力使わない
-      return kubuns.contractStatuses;
+computed: {
+    method(): types {
+        const obj = { value: 30, text: 'konitiha' };
+        importList.unshift(obj); //　破壊的なのでunshift()は極力使わない
+        return kubuns.contractStatuses;
+    }
 }
 ```
 
@@ -61,4 +67,51 @@ ContractStatusRefinement(): KubunValueList {
     ]
     return newContractStatus;
 }
+```
+
+```ts
+filteredContractList(): Contract[] {
+      return this.contracts.filter((contract) => {
+        //
+        if (this.contractStatusFilter === 30) return true;
+        return contract.data.contractStatus === this.contractStatusFilter;
+      });
+    },
+
+```
+
+```ts
+
+    filteredContractList(): Contract[] {
+      //  新規
+      const NEW_CONTRACT_VALUE = 10;
+      //  継続
+      const CONTINUATION_CONTRACT_VALUE = 20;
+      //  全ての案件
+      const ALL_CONTRACT_VALUE = 30;
+      // 契約ステータスによる絞り込み
+      // 全ての案件を選択
+      if (this.contractStatusFiltering === ALL_CONTRACT_VALUE)
+        return this.contracts;
+      // 新規を選択
+      return (
+        this.contracts
+        // .filter()...配列からtrueになったものだけを返す
+          .filter((contract) => {
+              return (
+                contract.data.contractStatus === this.contractStatusFiltering
+              );
+            })
+            // 以下は必要ない
+            // if (this.contractStatusFiltering === NEW_CONTRACT_VALUE)
+            //   return true;
+          // 継続を選択
+        //   .filter((contract) => {
+        //     if (this.contractStatusFiltering === CONTINUATION_CONTRACT_VALUE)
+        //       return true;
+        //     return (
+        //       contract.data.contractStatus === this.contractStatusFiltering
+        //     );
+        //   })
+      );
 ```
