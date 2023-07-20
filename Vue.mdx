@@ -83,24 +83,24 @@ filteredContractList(): Contract[] {
 ```ts
 
     filteredContractList(): Contract[] {
-      //  新規
-      const NEW_CONTRACT_VALUE = 10;
-      //  継続
-      const CONTINUATION_CONTRACT_VALUE = 20;
+    //   //  新規
+    //   const NEW_CONTRACT_VALUE = 10;
+    //   //  継続
+    //   const CONTINUATION_CONTRACT_VALUE = 20;
       //  全ての案件
-      const ALL_CONTRACT_VALUE = 30;
+    const ALL_CONTRACT_VALUE = 30;
       // 契約ステータスによる絞り込み
       // 全ての案件を選択
-      if (this.contractStatusFiltering === ALL_CONTRACT_VALUE)
+    if (this.contractStatusFiltering === ALL_CONTRACT_VALUE)
         return this.contracts;
       // 新規を選択
-      return (
+    return (
         this.contracts
         // .filter()...配列からtrueになったものだけを返す
-          .filter((contract) => {
-              return (
+        .filter((contract) => {
+            return (
                 contract.data.contractStatus === this.contractStatusFiltering
-              );
+            );
             })
             // 以下は必要ない
             // if (this.contractStatusFiltering === NEW_CONTRACT_VALUE)
@@ -113,5 +113,135 @@ filteredContractList(): Contract[] {
         //       contract.data.contractStatus === this.contractStatusFiltering
         //     );
         //   })
-      );
+        );
+    }
 ```
+
+Vue のライフサイクルフックは、コンポーネントが生成され、更新され、破棄されるときに
+
+実行されるメソッドのことを指します。Vue のコンポーネントは、次の 8 つのライフサイクルフックを持ちます。
+
+1. `beforeCreate`: コンポーネントが初期化される前に実行される。データやメソッドはまだ初期化されていない。
+
+2. `created`: コンポーネントが初期化された直後に実行される。データやメソッドは初期化されている。
+
+3. `beforeMount`: コンポーネントが DOM にマウントされる前に実行される。
+
+4. `mounted`: コンポーネントが DOM にマウントされた後に実行される。ここで、DOM を操作することができる。
+
+5. `beforeUpdate`: コンポーネントが更新される前に実行される。
+
+6. `updated`: コンポーネントが更新された後に実行される。ここで、更新された DOM にアクセスできる。
+
+7. `beforeUnmount`: コンポーネントが DOM からアンマウントされる前に実行される。
+
+8. `unmounted`: コンポーネントが DOM からアンマウントされた後に実行される。
+
+   ここで、コンポーネントが使用していたリソースを解放することができる。
+
+これらのライフサイクルフックは、Vue のコンポーネントが実行される前後のタイミングで
+
+処理を実行することができ、Vue のコンポーネントの動作を制御するために役立ちます。
+
+## ライフサイクルフックの使い方
+
+### beforeCreate
+
+コンポーネントが初期化される前に実行される。データやメソッドはまだ初期化されていない。
+
+```ts
+beforeCreate() {
+    console.log('beforeCreate');
+}
+```
+
+### created
+
+コンポーネントが初期化された直後に実行される。データやメソッドは初期化されている。
+
+```ts
+
+created() {
+    console.log('created');
+}
+```
+
+### beforeMount
+
+コンポーネントが DOM にマウントされる前に実行される。
+
+```ts
+beforeMount() {
+    console.log('beforeMount');
+}
+```
+
+### mounted
+
+コンポーネントが DOM にマウントされた後に実行される。ここで、DOM を操作することができる。
+
+```ts
+mounted() {
+    console.log('mounted');
+}
+```
+
+### beforeUpdate
+
+コンポーネントが更新される前に実行される。
+
+```ts
+beforeUpdate() {
+    console.log('beforeUpdate');
+}
+```
+
+### updated
+
+コンポーネントが更新された後に実行される。ここで、更新された DOM にアクセスできる。
+
+```ts
+updated() {
+    console.log('updated');
+}
+```
+
+### beforeUnmount
+
+コンポーネントが DOM からアンマウントされる前に実行される。
+
+```ts
+beforeUnmount() {
+    console.log('beforeUnmount');
+}
+```
+
+### unmounted
+
+コンポーネントが DOM からアンマウントされた後に実行される。ここで、コンポーネントが使用していたリソースを解放することができる。
+
+```ts
+unmounted() {
+    console.log('unmounted');
+}
+```
+
+## ライフサイクルフックの実行順
+
+コンポーネントのライフサイクルフックは、次の順番で実行されます。
+
+1. `beforeCreate`
+
+2. `created`
+
+3. `beforeMount`
+
+4. `mounted`
+
+5. `beforeUpdate`
+
+6. `updated`
+
+7. `beforeUnmount`
+
+8. `unmounted`

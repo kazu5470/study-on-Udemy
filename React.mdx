@@ -3,13 +3,13 @@
 ## createPortal
 
 ```js
-import { useState } from "react";
-import { createPortal } from "react-dom";
+import { useState } from 'react';
+import { createPortal } from 'react-dom';
 
-import Toast from "./components/Toast";
+import Toast from './components/Toast';
 
 const ToastPortal = ({ children }) => {
-  const target = document.querySelector(".container.start"); //targetにclassNameのDOMを代入
+  const target = document.querySelector('.container.start'); //targetにclassNameのDOMを代入
   return createPortal(children, target); //ToastPortalを呼ぶとcreatePortal
 };
 const Example = () => {
@@ -21,9 +21,9 @@ const Example = () => {
       </h3>
       <p>ボタンを押すと.container.start要素にマウントされて、表示されるトーストを作成してください。トーストにはToastコンポーネントを使用してください。</p> */}
 
-      <div className="container start"></div>
+      <div className='container start'></div>
       <button
-        type="button"
+        type='button'
         onClick={() => setToastOpen(true)} //onClickでsetToastOpenにtrueを設定
         disabled={toastOpen}
       >
@@ -103,7 +103,7 @@ export default Example;
 ## useState
 
 ```js
-import { useState } from "react";
+import { useState } from 'react';
 
 // POINT stateとレンダリングの仕組み
 const Example = () => {
@@ -113,7 +113,7 @@ const Example = () => {
   return (
     <>
       <input
-        type="text"
+        type='text'
         onChange={(e) => {
           console.log(e.target.value);
           // setVal(e.target.value);
@@ -130,7 +130,7 @@ export default Example;
 
 ## useContext(),createContext();
 
-```js
+```ts
 
 index.ts {
   // POINT useContextとstate
@@ -206,6 +206,43 @@ GrandChild.ts {
   };
   export default GrandChild;
 }
+
+
+```
+
+```ts
+
+import React from 'react';
+import {Table, TableProps} from '@mantine/core'
+
+type Props = {
+  name: string;
+  body: string;
+}
+
+export const Template: Rect.FC<TableProps,Props> = (props) => {
+  const {name, body} = props;
+  return (
+    <div>
+      <Table>
+        <thead>
+          <tr>
+            <th>name</th>
+            <th>body</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{name}</td>
+            <td>{body}</td>
+          </tr>
+        </tbody>
+      </Table>
+    </div>
+  )
+}
+
+export default
 
 
 ```
